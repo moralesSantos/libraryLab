@@ -1,11 +1,10 @@
-import java.util.List;
+
+import javax.swing.border.TitledBorder;
 import java.util.ArrayList;
 
 public class Library extends Book{
     // Add the missing implementation to this class
-    private String name;
     private String libLocation;
-    final private String libHours = "9:00 AM to 5:00PM";
 
     private ArrayList<Book> bookList = new ArrayList<Book>();
 
@@ -19,13 +18,8 @@ public class Library extends Book{
     }
 
     public void printOpeningHours(){
-        System.out.println("Libraries are open daily from: " + getLibHours());
+        System.out.println("Libraries are open daily from: 9:00 AM to 5:00PM");
     }
-
-    public String getLibHours(){
-       return libHours;
-    }
-
     public String getLibLocation(){
        return this.libLocation;
     }
@@ -39,14 +33,36 @@ public class Library extends Book{
        for (Book b : this.bookList) {
            if (b.title.equals(title)) {
                available = true;
-               if (!b.borrowed) {
-                   System.out.println("You succesfully rented: " + title);
+               if (b.borrowed != true) {
+                   System.out.println("You successfully rented: " + title);
                    b.borrowed = true;
                } else System.out.println("Sorry, this book is already borrowed");
            }
        }
        if (!available){
            System.out.println("Sorry, this book is not in our catalog");
+       }
+    }
+
+    public void printAvailableBooks(){
+        if(this.bookList.isEmpty()) {
+            System.out.println("No Book in Catalog");
+        }
+        for (Book b : this.bookList) {
+//            if(this.bookList.isEmpty()) {
+//                System.out.println("No Book in Catalog");
+            if (b.isBorrowed()==false){
+                System.out.println(b.getTitle());
+            }
+        }
+    }
+
+    public void returnBook(String title){
+       for (Book b: this.bookList){
+           if(b.title.equals(title)){
+               b.borrowed = false;
+               System.out.println(title + " has been returned");
+           }
        }
     }
 
@@ -78,23 +94,23 @@ public class Library extends Book{
         firstLibrary.borrowBook("The Lord of the Rings");
         firstLibrary.borrowBook("The Lord of the Rings");
         secondLibrary.borrowBook("The Lord of the Rings");
-//        System.out.println();
+        System.out.println();
 //
 //        // Print the titles of all available books from both libraries
-//        System.out.println("Books available in the first library:");
-//        firstLibrary.printAvailableBooks();
-//        System.out.println();
-//        System.out.println("Books available in the second library:");
-//        secondLibrary.printAvailableBooks();
-//        System.out.println();
+        System.out.println("Books available in the first library:");
+        firstLibrary.printAvailableBooks();
+        System.out.println();
+        System.out.println("Books available in the second library:");
+        secondLibrary.printAvailableBooks();
+        System.out.println();
 //
 //        // Return The Lords of the Rings to the first library
-//        System.out.println("Returning The Lord of the Rings:");
-//        firstLibrary.returnBook("The Lord of the Rings");
-//        System.out.println();
+        System.out.println("Returning The Lord of the Rings:");
+        firstLibrary.returnBook("The Lord of the Rings");
+        System.out.println();
 //
 //        // Print the titles of available from the first library
-//        System.out.println("Books available in the first library:");
-//        firstLibrary.printAvailableBooks();
+        System.out.println("Books available in the first library:");
+        firstLibrary.printAvailableBooks();
     }
 }

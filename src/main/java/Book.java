@@ -9,9 +9,6 @@ public class Book {
     }
     public Book() {
     }
-    public boolean barrowBook(Book book){
-         return book.borrowed;
-    }
 
     // Marks the book as rented
     public void borrowed() {
